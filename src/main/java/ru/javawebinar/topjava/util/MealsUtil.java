@@ -28,10 +28,10 @@ public class MealsUtil {
     }
 
     private static MealTo createTo(Meal meal, boolean excess) {
-        return new MealTo(meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
+        return new MealTo(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
     }
 
-    public static List<Meal> createMeals() {
+    public static List<Meal> createTestMeals() {
         List<Meal> meals = Arrays.asList(
                 new Meal(1, LocalDateTime.of(2020, Month.JANUARY, 30, 10, 0), "Завтрак", 500),
                 new Meal(2, LocalDateTime.of(2020, Month.JANUARY, 30, 13, 0), "Обед", 1000),
@@ -42,6 +42,5 @@ public class MealsUtil {
                 new Meal(7, LocalDateTime.of(2020, Month.JANUARY, 31, 20, 0), "Ужин", 410)
         );
         return meals;
-//        return filteredByStreams(meals, LocalTime.of(0, 0), LocalTime.of(23, 0), 2000);
     }
 }

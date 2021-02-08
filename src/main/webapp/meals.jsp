@@ -8,6 +8,7 @@
 <h3><a href="index.html">Home</a></h3>
 <hr>
 <h4>Meals</h4>
+<p><a href="meals?action=insert">Add meal</a></p>
 
 <table border="1" cellspacing="0">
     <tr>
@@ -22,8 +23,9 @@
             <td>${meal.getFormattedDateTime()}</td>
             <td>${meal.getDescription()}</td>
             <td>${meal.getCalories()}</td>
-            <td><h><a href="meals">Update</a></h></td>
-            <td><h><a href="meals">Delete</a></h></td>
+
+            <td><a href="meals?action=edit&mealId=<c:out value="${meal.getId()}"/>">Update</a></td>
+            <td><a href="meals?action=delete&mealId=<c:out value="${meal.getId()}"/>">Delete</a></td>
         </tr>
     </c:forEach>
 
