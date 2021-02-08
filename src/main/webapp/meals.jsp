@@ -9,22 +9,19 @@
 <hr>
 <h4>Meals</h4>
 
-<table border="">
+<table border="1" cellspacing="0">
     <tr>
         <th>Date</th>
         <th>Description</th>
         <th>Calories</th>
-        <th>Excess</th>
         <th></th>
         <th></th>
     </tr>
-
-    <c:forEach items="${mealsTo}" var="meals">
-        <tr>
-            <td>${meals.getDateTime()}</td>
-            <td>${meals.getDescription()}</td>
-            <td>${meals.getCalories()}</td>
-            <td>${meals.isExcess()}</td>
+    <c:forEach items="${meals}" var="meal">
+        <tr style="color:${meal.isExcess() ? 'red' : 'green'}">
+            <td>${meal.getFormattedDateTime()}</td>
+            <td>${meal.getDescription()}</td>
+            <td>${meal.getCalories()}</td>
             <td><h><a href="meals">Update</a></h></td>
             <td><h><a href="meals">Delete</a></h></td>
         </tr>
