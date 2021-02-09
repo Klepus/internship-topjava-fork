@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -38,20 +39,22 @@ public class MealServlet extends HttpServlet {
             int mealId = Integer.parseInt(request.getParameter("mealId"));
             dao.delete(mealId);
             forward = MEAL_LIST;
-            request.setAttribute("meals", MealsUtil.filteredByStreams(dao.getAll(), LocalTime.of(0, 0), LocalTime.of(23, 0), 2000));
+            request.setAttribute("meals", MealsUtil.filteredByStreams(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
         } else if (action.equalsIgnoreCase("edit")) {
             log.debug("redirect to edit");
             forward = ADD_OR_UPDATE;
             int mealId = Integer.parseInt(request.getParameter("mealId"));
             Meal meal = dao.getById(mealId);
             request.setAttribute("meal", meal);
+            request.setAttribute("action", "Update");
         } else if (action.equalsIgnoreCase("meals")) {
             log.debug("redirect to meals");
             forward = MEAL_LIST;
-            request.setAttribute("meals", MealsUtil.filteredByStreams(dao.getAll(), LocalTime.of(0, 0), LocalTime.of(23, 0), 2000));
+            request.setAttribute("meals", MealsUtil.filteredByStreams(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
         } else {
             log.debug("redirect to add meal");
             forward = ADD_OR_UPDATE;
+            request.setAttribute("action", "Add");
         }
 
         request.getRequestDispatcher(forward).forward(request, response);
@@ -63,7 +66,7 @@ public class MealServlet extends HttpServlet {
         Meal meal = new Meal();
         meal.setDescription(request.getParameter("description"));
         meal.setCalories(Integer.parseInt(request.getParameter("calories")));
-        meal.setDateTimeByString(request.getParameter("datetime"));
+        meal.setDateTime(LocalDateTime.parse(request.getParameter("datetime")));
         String mealId = request.getParameter("mealId");
         if (mealId == null || mealId.isEmpty()) {
             dao.add(meal);
@@ -74,7 +77,7 @@ public class MealServlet extends HttpServlet {
             log.debug("meal updated");
         }
         RequestDispatcher view = request.getRequestDispatcher(MEAL_LIST);
-        request.setAttribute("meals", MealsUtil.filteredByStreams(dao.getAll(), LocalTime.of(0, 0), LocalTime.of(23, 0), 2000));
+        request.setAttribute("meals", MealsUtil.filteredByStreams(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
         view.forward(request, response);
     }
 }

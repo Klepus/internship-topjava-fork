@@ -5,15 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 public class MealTo {
     private final int id;
-
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
-
     private final LocalDateTime dateTime;
-
     private final String description;
-
     private final int calories;
-
     private final boolean excess;
 
     public MealTo(int id, LocalDateTime dateTime, String description, int calories, boolean excess) {
@@ -30,11 +24,6 @@ public class MealTo {
 
     public LocalDateTime getDateTime() {
         return dateTime;
-    }
-
-
-    public String getFormattedDateTime() {
-        return dateTime.format(formatter);
     }
 
     public String getDescription() {

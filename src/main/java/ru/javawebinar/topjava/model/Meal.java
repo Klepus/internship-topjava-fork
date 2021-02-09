@@ -6,13 +6,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Meal {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
     private int id;
-    
     private LocalDateTime dateTime;
-
     private String description;
-
     private int calories;
 
     public Meal(int id, LocalDateTime dateTime, String description, int calories) {
@@ -39,14 +35,6 @@ public class Meal {
 
     public void setCalories(int calories) {
         this.calories = calories;
-    }
-
-    public void setDateTimeByString(String dateTimeByString) {
-        dateTime = LocalDateTime.parse(dateTimeByString, formatter);
-    }
-
-    public String getFormattedDateTime() {
-        return dateTime.format(formatter);
     }
 
     public int getId() {
