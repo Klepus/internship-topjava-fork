@@ -33,23 +33,23 @@ public class MealRestController {
         return service.get(id, userId);
     }
 
-    public Meal create(Meal meal) {
-        int userId = SecurityUtil.authUserId();
-        log.info("create {} with userId={}", meal, userId);
-        checkNew(meal);
-        return service.create(meal, userId);
-    }
-
     public void delete(int id) {
         int userId = SecurityUtil.authUserId();
         log.info("delete {} with userId={}", id, userId);
         service.delete(id, userId);
     }
 
+    public Meal create(Meal meal) {
+        int userId = SecurityUtil.authUserId();
+        checkNew(meal);
+        log.info("create {} with userId={}", meal, userId);
+        return service.create(meal, userId);
+    }
+
     public void update(Meal meal, int id) {
         int userId = SecurityUtil.authUserId();
-        log.info("update {} with userId={}", meal, userId);
         assureIdConsistent(meal, id);
+        log.info("update {} with userId={}", meal, userId);
         service.update(meal, userId);
     }
 
