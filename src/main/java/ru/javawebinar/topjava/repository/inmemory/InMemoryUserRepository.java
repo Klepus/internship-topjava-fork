@@ -22,11 +22,6 @@ public class InMemoryUserRepository implements UserRepository {
     public static final int USER_ID = 1;
     public static final int ADMIN_ID = 2;
 
-//    {
-//        save(new User(1, "User", "user@mail.ru", "password", Role.USER));
-//        save(new User(2, "Admin", "admin@mail.ru", "password", Role.ADMIN));
-//    }
-
     @Override
     public User save(User user) {
         log.info("save {}", user);
