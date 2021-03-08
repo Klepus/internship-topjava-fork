@@ -10,8 +10,6 @@ public class Profiles {
             JPA = "jpa",
             DATAJPA = "datajpa";
 
-    public static final String REPOSITORY_IMPLEMENTATION = DATAJPA;
-
     public static final String
             POSTGRES_DB = "postgres",
             HSQL_DB = "hsqldb";
@@ -31,7 +29,7 @@ public class Profiles {
     public static class ActiveDbProfileResolver implements ActiveProfilesResolver {
         @Override
         public @NonNull String[] resolve(@NonNull Class<?> aClass) {
-            return new String[]{getActiveDbProfile(), REPOSITORY_IMPLEMENTATION};
+            return new String[]{getActiveDbProfile()};
         }
     }
 }
