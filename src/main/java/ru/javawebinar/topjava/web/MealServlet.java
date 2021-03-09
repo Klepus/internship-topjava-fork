@@ -22,12 +22,17 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 public class MealServlet extends HttpServlet {
 
-    private ConfigurableApplicationContext springContext;
+    private ClassPathXmlApplicationContext springContext;
     private MealRestController mealController;
 
     @Override
     public void init() {
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+//        System.setProperty("spring.profiles.active", "datajpa, postgres");
+        springContext = new ClassPathXmlApplicationContext();
+        springContext.getEnvironment().setActiveProfiles("datajpa", "postgres");
+        springContext.setConfigLocations(new String[] {"spring/spring-app.xml", "spring/spring-db.xml"});
+        springContext.refresh();
+
         mealController = springContext.getBean(MealRestController.class);
     }
 
