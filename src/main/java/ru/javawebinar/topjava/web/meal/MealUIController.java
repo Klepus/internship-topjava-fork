@@ -48,6 +48,7 @@ public class MealUIController extends AbstractMealController {
         return super.get(id);
     }
 
+    @Override
     @GetMapping(value ="/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MealTo> getBetween(
             @RequestParam @Nullable LocalDate startDate,

@@ -1,40 +1,49 @@
-const mealsAjaxUrl = "profile/meals/";
+function updateFilteredTable() {
+    $.ajax({
+        type: "GET",
+        url: "profile/meals/filter",
+        data: $("#filter").serialize()
+    }).done(updateTableByData)
+}
 
-// https://stackoverflow.com/a/5064235/548473
-const ctx = {
-    ajaxUrl: mealsAjaxUrl
-};
+function clearFilter() {
+    $("#filter")[0].reset();
+    $.get("profile/meals/", updateTableByData)
+}
 
 $(function () {
-    makeEditable(
-        $("#datatable").DataTable({
-            "paging": false,
-            "info": true,
-            "columns": [
-                {
-                    "data": "dateTime"
-                },
-                {
-                    "data": "description"
-                },
-                {
-                    "data": "calories"
-                },
-                {
-                    "defaultContent": "Edit",
-                    "orderable": false
-                },
-                {
-                    "defaultContent": "Delete",
-                    "orderable": false
-                }
-            ],
-            "order": [
-                [
-                    0,
-                    "asc"
+    makeEditable({
+            ajaxUrl: "profile/meals/",
+            datatableApi: $("#datatable").DataTable({
+                "paging": false,
+                "info": true,
+                "columns": [
+                    {
+                        "data": "dateTime"
+                    },
+                    {
+                        "data": "description"
+                    },
+                    {
+                        "data": "calories"
+                    },
+                    {
+                        "defaultContent": "Edit",
+                        "orderable": false
+                    },
+                    {
+                        "defaultContent": "Delete",
+                        "orderable": false
+                    }
+                ],
+                "order": [
+                    [
+                        0,
+                        "asc"
+                    ]
                 ]
-            ]
-        })
+            }),
+            updateTable: updateFilteredTable
+        }
     );
 });
